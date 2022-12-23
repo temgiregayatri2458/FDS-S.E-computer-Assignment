@@ -1,0 +1,176 @@
+/*Write C++ program for storing binary number using doubly linked lists. Write functions
+a) To compute 1‘s and 2‘s complement 
+b) Add two binary numbers*/
+
+
+
+
+#include <iostream>
+using namespace std;
+typedef struct dnode
+{
+    int data;
+    struct dnode *next,*prev;
+}dnode;
+//create binary no!!!
+dnode *create()
+{
+    dnode *head;
+    head=NULL;
+    char x;
+    cout<<"\nEnter the  Binary no:-";
+    while((x=getchar())!='\n')
+    {
+       dnode *p;
+      if(head==NULL)
+      {
+        head=new dnode;
+        //cin>>head1->data;
+        head->next=head->prev=NULL;
+        p=head;
+      }
+      else
+      {
+        p->next=new dnode;
+        //cin>>head1->data;
+        p->next->prev=p;
+        p=p->next;
+        p->next=NULL;
+      }
+      if(x=='0')
+       p->data=0;
+      else
+       p->data=1;
+}
+    return(head);
+}
+void print(dnode *head)
+{
+  dnode *p;
+  p=head;
+  while(p!=NULL)
+  {
+    cout<<" "<<p->data;
+    p=p->next;
+  }
+}
+//addition
+dnode *add(dnode *head1,dnode *head2)
+{
+    int sum,carry,x,y;
+    sum=carry=0;
+    dnode *head3,*p,*q,*r;
+    p=head1;
+    q=head2;
+    head3=NULL;
+    while(p->next!=NULL)
+    p=p->next;
+    while(q->next!=NULL)
+    q=q->next;
+    while(p!=NULL ||q!=NULL)
+    {
+        if(p!=NULL)
+        {
+            x=p->data;
+        }
+            p=p->prev;
+        if(q!=NULL)
+        {
+            y=q->data;
+        }
+            q=q->prev;
+        sum=(x+y+carry)%2;
+        carry=(x+y+carry)/2;
+        
+            if(head3==NULL)
+            {
+                head3=new dnode;
+                head3->prev=head3->next=NULL;
+                r=head3;
+            }
+            else
+            {
+                r->prev=new dnode;
+                r->prev->next=r;
+                r=r->prev;
+                r->prev=NULL;
+             }
+            r->data=sum;
+    }
+        r->prev=new dnode;
+        r->prev->next=r;
+        r=r->prev;
+        r->prev=NULL;
+        r->data=carry;
+        head3=r;
+        return(head3);
+}
+//1's complement
+dnode *once_complement(dnode *head1)
+{
+  dnode *p;
+  p=head1;
+  while(p!=NULL)
+  {
+    if(p->data==1)
+     p->data=0;
+    else
+     p->data=1;
+     p=p->next;
+  }
+  return(head1);
+}
+
+//2's complement of second no.
+
+dnode *twos_complement(dnode *head2)
+{
+  dnode *q;
+  q=head2;
+  while(q->next!=NULL)
+   q=q->next;
+  while(q->data!=0)
+  {
+    q=q->prev;
+  }
+  while(q!=NULL)
+  {
+    if(q->data==0)
+      q->data=1;
+    else
+    {
+       q->data=0;
+    }
+   q=q->prev;
+
+  }
+  return (head2);
+}
+
+int main()
+{
+    //int n;
+    dnode *head1;
+    dnode *head2;
+    dnode *head3; 
+    dnode *head4;
+    dnode *head5;
+    cout<<"\nEnter for 1st no:-";
+    head1=create();
+    print(head1);
+    cout<<"\nEnter for 2nd no:-";
+    head2=create();
+    print(head2);
+    cout<<"\nAddition is:-";
+    head3=add(head1,head2);
+    print(head3);
+    cout<<"\n\nOnce complement of 1st no. is:-";
+    head4=once_complement(head1);
+    print(head4);
+    cout<<"\n\n2's Complement of second no:-";
+    head5=twos_complement(head2);
+    print(head5);
+    return 0;
+
+}
+
