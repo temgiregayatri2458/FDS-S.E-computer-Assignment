@@ -1,0 +1,185 @@
+/*Department of Computer Engineering has student's club named 'Pinnacle Club'. Students 
+of second, third and final year of department can be granted membership on request. 
+Similarly one may cancel the membership of club. First node is reserved for president of 
+club and last node is reserved for secretary of club. Write C++ program to maintain club 
+member‘s information using singly linked list. Store student PRN and Name. Write 
+functions to:
+a) Add and delete the members as well as president or even secretary.
+b) Compute total number of members of club
+c) Display members
+d) Two linked lists exists for two divisions. Concatenate two lists*/
+
+
+#include<iostream>
+using namespace std;
+typedef struct node
+{
+	int rno;
+	string name;
+	struct node*next;
+}node;
+node*create()
+{
+	node*p,*head;
+	int n;
+	cout<<"\nEnter the number of nodes = ";
+	cin>>n;
+	head=new node;
+	cout<<"\nEnter the name  = ";
+	cin>>head->name;
+	cout<<"\nEnter the roll number = ";
+	cin>>head->rno;
+	p=head;
+	p->next=NULL;
+	for(int i=1;i<n;i++)
+	{
+		p->next=new node;
+		p=p->next;
+		cout<<"\nENter the name = ";
+		cin>>p->name;
+		cout<<"\nENter the roll number = ";
+		cin>>p->rno;
+		p->next=NULL;
+	}
+	return head;
+	
+}
+void display(node*head)
+{
+	node *p;
+	p=head;
+	while(p!=NULL)
+	{
+		cout<<"\n\t"<<p->name;
+		cout<<"\t"<<p->rno;
+		p=p->next;
+	}
+}
+node*insert(node*head,int loc)
+{
+	node*p,*q;
+	p=new node;
+	cout<<"\nEnter the name of the student = ";
+	cin>>p->name;
+	cout<<"\nEnter the roll number = ";
+	cin>>p->rno;
+	if(loc==1)
+	{
+		p->next=head;
+		head=p;
+		return head;
+	}
+	else
+	{
+		q=head;
+		for(int i=1;i<loc-1;i++)
+		{
+			if(q!=NULL)
+				q=q->next;
+		}
+		p->next=q->next;
+		q->next=p;
+		return head;
+	}
+}
+node*del(node*head , int loc)
+{
+	node*p,*q;
+	if(loc==1)
+	{
+		p=head;
+		head=head->next;
+		delete(p);
+		return head;
+	}
+	else
+	{
+		p=head;
+		for(int i=1;i<loc-1;i++)
+		{
+			p=p->next;
+		}
+		if(p==NULL)
+			cout<<"\nElement is not present ";
+		
+		q=p->next;
+		p->next=q->next;
+		delete(q);
+		return(head);
+	}
+}
+node*mer(node*head)
+{
+	node*p,*q;
+	p=create();
+	q=head;
+	while(q->next!=NULL)
+	{
+		q=q->next;
+	}
+	q->next=p;
+	return head;
+}
+int main()
+{
+	node*c,*a,*d;
+	int ch,m,t,x;
+	do
+	{
+		cout<<"\n\n\tMenu\n\t1.Creat pinacle clube \n\t2.Display\n\t3.insert\n\t4.Insert member \n\t5.inser Secretory";
+		cout<<"\n\t6.delet\n\t7.Merge\n\t8.Exit";
+		cout<<"\nEnter the choice = ";
+		cin>>ch;
+		switch(ch)
+		{
+			case 1:
+				c=create();
+				break;
+			case 2:
+				display(c);
+				break;
+			case 3:
+				a=insert(c,1);
+				display(a);
+				break;
+			case 4:
+				a=insert(a,2);
+				display(a);
+				break;
+			case 5:
+				a=insert(a,3);
+				display(a);
+				break;
+			case 6:
+				a=del(a,2);
+				display(a);
+				break;
+			case 7:
+				a=mer(a);
+				display(a);
+				
+			default:
+				cout<<"\nEnter the correct choice";
+				
+				
+		}
+		
+		
+	}while(ch<10);
+	return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
