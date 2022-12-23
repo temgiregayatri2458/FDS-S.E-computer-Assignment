@@ -1,0 +1,124 @@
+/*A double-ended queue (deque) is a linear list in which additions and deletions may be 
+made at either end. Obtain a data representation mapping a deque into a one￾dimensional array. Write C++ program to simulate deque with functions to add and 
+delete elements from either end of the deque*/
+
+
+#include<iostream>
+#define sz 50
+using namespace std;
+typedef struct job
+{
+	int no[sz];
+	int r,f;
+}job;
+void initialize(job*p)
+{
+	p->r=p->f=-1;
+	
+}
+int full(job*p)
+{
+	if(p->r==sz-1)
+		return 1;
+	else
+		return 0;
+}
+int empty(job*p)
+{
+	if(p->r==-1)
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+void creat(job*p,int x)
+
+{
+	p->f=0;
+	if(p->r==sz-1)
+	{
+		cout<<"\nQueue is full";
+	}
+	p->r=p->r+1;
+	p->no[p->r]=x;
+}
+int delet(job*p)
+{
+	int x;
+	if(p->f==-1)
+	{
+		cout<<"\nQueue is empty";
+	}
+	x=p->no[p->f];
+	p->f=p->f+1;
+	return x;
+}
+void print(job*p)
+{
+	for(int i=p->f;i<=p->r;i++)
+	{
+		cout<<"\n"<<p->no[i];
+	}
+}
+int main()
+{
+	job p;
+	initialize(&p);
+	int x,m,t,ch;
+	do
+	{
+		cout<<"\n\tMenue\n\t1.Create the job queue\n\t2.Display th queue \n\t3.Add";
+		cout<<"\n\t4.Delet job \n\t5.Exit ";
+		cout<<"\nEnter the choice = ";
+		cin>>(ch);
+		switch (ch)
+		{
+			case 1:
+				cout<<"\nEnter no  the job present= ";
+				cin>>m;
+				for(int i=0;i<m;i++)
+				{
+					cout<<"\nENter the number of  job = ";
+					cin>>x;
+					creat(&p,x);
+				}
+				break;
+			case 2:
+				cout<<"\n**Job queue **";
+				print(&p);
+				break;
+			case 3:
+				cout<<"\nNumber want to insert = ";
+				cin>>t;
+				for(int i=0;i<t;i++)
+				{
+					cout<<"\nENter the number of  job = ";
+					cin>>x;
+					creat(&p,x);
+				}
+				print(&p);
+				break;
+			case 4:
+				cout<<"\nWho many no of want to delet = ";
+				cin>>t;
+				for(int i=0;i<t;i++)
+				{
+					m=delet(&p);
+					cout<<"\nDeleted = "<<m;
+				}
+			case 5:
+				cout<<"\nEnd of the program ";
+				
+		}
+	}while(ch<=5);
+	return 0;
+}
+
+
+
+
+
+
+
+
