@@ -1,0 +1,59 @@
+/*Write a Python program that computes the net amount of a bank account based a 
+transaction log from console input. The transaction log format is shown as following: D 
+100 W 200 (Withdrawal is not allowed if balance is going negative. Write functions for 
+withdraw and deposit) D means deposit while W means withdrawal.
+Suppose the following input is supplied to the program: 
+D 300 
+D 300 
+W 200 
+D 100 
+Then, the output should be: 500*/
+
+
+def withdrawl(amount,balance):
+    balance=balance-amount
+    return balance
+def deposite(amount,balance):
+    balance=balance+amount
+    return balance
+
+def main():
+    while True:
+        print("1.1.Input enter the transaction log ")
+        print("2.Exit")
+        ch=int(input("Enter the choice = "))
+        if(ch==2):
+            print("End of the program ")
+        elif(ch==1):
+            balance=0
+            list=[]
+            print("Enter the transaction log ")
+
+            n=int(input("Enter total number of transaction log = "))
+            for i in range (n):
+                data=input()
+                if(data==""):
+                    break
+                list.append(data.split())
+            print("Transction in the list is ",list)
+
+            for transaction in list:
+                if(transaction[0]=='W'):
+                    if(balance<int(transaction[1])):
+                        print("Transaction declined Insufficient balance")
+                    else:
+                        balance=withdrawl(int(transaction[1]),balance)
+                        print("Succefful Withdrawl  transaction \n Balance is ",balance)
+
+                else:
+                        balance=deposite(int(transaction[1]),balance)
+                        print("Successful deposite  Transaction",balance)
+
+            print("Totale balance is = ",balance)
+
+
+
+main()
+            
+    
+
