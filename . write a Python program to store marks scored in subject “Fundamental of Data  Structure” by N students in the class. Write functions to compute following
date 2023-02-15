@@ -1,0 +1,81 @@
+/*. write a Python program to store marks scored in subject “Fundamental of Data 
+Structure” by N students in the class. Write functions to compute following
+a) The average score of class 
+b) Highest score and lowest score of class 
+c) Count of students who were absent for the test
+d) Display mark with highest frequency
+*/
+
+a=[]
+n=int(input("Enter the number of student present is class = "))
+def create():
+    for i in range (n):
+        m=int(input("Enter the marks of student if student is absent enter the -1 = "))
+        a.append(m)
+    print("Marks of all student = ",a)
+def avg():
+    sum=0
+    cnt=0
+    for i in range (n):
+        
+        if(a[i]!=-1):
+            sum=sum+a[i]
+            cnt=cnt+1
+    avg=sum/cnt;
+    print("Average marks of student = ",avg)
+
+def low_high():
+    max=-1
+    min=100
+    for i in range (n):
+        if(max<a[i]):
+            max=a[i]
+    print("Maximum marks of student = ",max)
+
+    for i in range (n):
+        if(a[i]!=-1):
+            if(min>a[i]):
+                min=a[i]
+    print("Minum marks of the student = ",min)
+def abst():
+    cnt=0
+    for i in range (n):
+        if(a[i]==-1):
+            cnt=cnt+1
+    print("Absent student is = ",cnt)
+            
+def freq():
+    for i in range (n):
+        cnt=0
+        for j in range (n):
+            if(i==a[j]):
+                cnt=cnt+1
+            if(cnt!=0):
+                print("Frequency of marks = ",cnt)
+
+def main():
+    while True:
+        print("1.store Data of student marks ")
+        print("2.Average marks of student")
+        print("3.Heigh and low score of marks ")
+        print("4.Absent student number")
+        print("Display Marks With high frequency ")
+        ch=int(input("Enter the choice = "))
+        if(ch==1):
+            create()
+        if(ch==2):
+                avg()
+        if(ch==3):
+            low_high()
+        if(ch==4):
+            abst()
+        if(ch==5):
+           freq() 
+        if(ch==6):
+           print("End of the program")
+           quit()
+
+
+
+main()
+quit()
